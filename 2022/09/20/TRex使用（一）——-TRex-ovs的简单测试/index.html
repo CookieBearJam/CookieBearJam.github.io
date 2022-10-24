@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/trex-3.png">
 <meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/trex-2.png">
 <meta property="article:published_time" content="2022-09-20T13:08:31.000Z">
-<meta property="article:modified_time" content="2022-10-24T09:35:18.224Z">
+<meta property="article:modified_time" content="2022-10-24T09:36:01.834Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="计算机网络 工具使用 流量测试 TRex dpdk ovs">
 <meta name="twitter:card" content="summary">
@@ -197,9 +197,11 @@
 <li>拓扑中两台均为虚拟机，位于同一台宿主机上。一台虚拟机作为安装trex的服务（发）端与客户（收）端，透传了两张10Gbps带宽的物理网卡，分别作为trex的收发端口；另外一台是装有ovs-dpdk版的虚拟交换机，这台机器承担转发的任务，一般就是你的DUT（<strong>D</strong>evice<strong>U</strong>nder<strong>T</strong>est），拓扑如下图所示：</li>
 </ol>
 <img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/topo.png" alt="topo">
-2. 当然只做个人学习测试的话虚拟网卡也可以，但尽量不要选择virtio类型的虚拟网卡，在dpdk驱动支持的方面可能有点问题。（比如在trex里可能会显示速度为100Gb/s）
-3. 虚拟机镜像都为ubuntu-18.04，要保证能够分配足够ovs的大页内存，例如一个端口512m的大页内存，则2个端口就是1024M，内存至少在1G以上吧。
 
+<ol start="2">
+<li>当然只做个人学习测试的话虚拟网卡也可以，但尽量不要选择virtio类型的虚拟网卡，在dpdk驱动支持的方面可能有点问题。（比如在trex里可能会显示速度为100Gb&#x2F;s）</li>
+<li>虚拟机镜像都为ubuntu-18.04，要保证能够分配足够ovs的大页内存，例如一个端口512m的大页内存，则2个端口就是1024M，内存至少在1G以上吧。</li>
+</ol>
 <h3 id="安装dpdk-stable-19-11-10"><a href="#安装dpdk-stable-19-11-10" class="headerlink" title="安装dpdk-stable-19.11.10"></a>安装dpdk-stable-19.11.10</h3><ol>
 <li>可以参考我的<a href>这篇文章-dpdk安装简易版</a>，其实就是借助官方提供的脚本来进行dpdk的安装和端口的驱动绑定。</li>
 </ol>

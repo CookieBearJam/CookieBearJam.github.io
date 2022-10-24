@@ -15,19 +15,20 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="TRex使用(一) —— TRex+ovs的简单测试本文预期读者对象：对ovs以及dpdk有一定的了解和使用经验，或只需要使用TRex工具测速的软件开发者。 简介Trex TRex是cisco公司的大流量测试器，相较于iperf，TRex可以发到10Gb&#x2F;s，同时也支持通过python脚本（scapy库）发送自定义格式的报文。 源代码GitHub仓库：cisco-system-traff">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/TRex使用（一）——-TRex-ovs的简单测试.assets/未命名文件%20(3).png">
-<meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/TRex使用（一）——-TRex-ovs的简单测试.assets/image-20221024110810812.png">
-<meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/TRex使用（一）——-TRex-ovs的简单测试.assets/image-20221024111124825.png">
-<meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/TRex使用（一）——-TRex-ovs的简单测试.assets/image-20221024111239907.png">
-<meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/TRex使用（一）——-TRex-ovs的简单测试.assets/image-20221024111326765.png">
-<meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/TRex使用（一）——-TRex-ovs的简单测试.assets/image-20221024113021567.png">
-<meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/TRex使用（一）——-TRex-ovs的简单测试.assets/image-20221024112228618.png">
+<meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/topo.png">
+<meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/未命名文件%20(3).png">
+<meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/image-20221024110810812.png">
+<meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/image-20221024111124825.png">
+<meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/image-20221024111239907.png">
+<meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/image-20221024111326765.png">
+<meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/image-20221024113021567.png">
+<meta property="og:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/image-20221024112228618.png">
 <meta property="article:published_time" content="2022-09-20T13:08:31.000Z">
-<meta property="article:modified_time" content="2022-10-24T03:52:46.801Z">
+<meta property="article:modified_time" content="2022-10-24T08:41:29.030Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="计算机网络 工具使用 流量测试 TRex dpdk ovs">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/TRex使用（一）——-TRex-ovs的简单测试.assets/未命名文件%20(3).png">
+<meta name="twitter:image" content="http://example.com/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/topo.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -198,7 +199,9 @@
 </ol>
 <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="测试拓扑及配置"><a href="#测试拓扑及配置" class="headerlink" title="测试拓扑及配置"></a>测试拓扑及配置</h3><ol>
 <li><p>拓扑中两台均为虚拟机，位于同一台宿主机上。一台虚拟机作为安装trex的服务（发）端与客户（收）端，透传了两张10Gbps带宽的物理网卡，分别作为trex的收发端口；另外一台是装有ovs-dpdk版的虚拟交换机，这台机器承担转发的任务，一般就是你的DUT（<strong>D</strong>evice<strong>U</strong>nder<strong>T</strong>est），拓扑如下图所示：</p>
-<img src="TRex使用（一）——-TRex-ovs的简单测试.assets/未命名文件 (3).png" alt="未命名文件 (3)" style="zoom: 67%;" />
+<img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/topo.png" alt="topo" style="zoom:67%;">
+
+<img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/未命名文件 (3).png" alt="未命名文件 (3)" style="zoom: 67%;">
 </li>
 <li><p>当然只做个人学习测试的话虚拟网卡也可以，但尽量不要选择virtio类型的虚拟网卡，在dpdk驱动支持的方面可能有点问题。（比如在trex里可能会显示速度为100Gb&#x2F;s）</p>
 </li>
@@ -206,12 +209,12 @@
 </li>
 </ol>
 <h3 id="安装dpdk-stable-19-11-10"><a href="#安装dpdk-stable-19-11-10" class="headerlink" title="安装dpdk-stable-19.11.10"></a>安装dpdk-stable-19.11.10</h3><ol>
-<li>可以参考我的<a href="">这篇文章-dpdk安装简易版</a>，其实就是借助官方提供的脚本来进行dpdk的安装和端口的驱动绑定。</li>
+<li>可以参考我的<a href>这篇文章-dpdk安装简易版</a>，其实就是借助官方提供的脚本来进行dpdk的安装和端口的驱动绑定。</li>
 </ol>
 <h3 id="安装TRex-v2-9-7"><a href="#安装TRex-v2-9-7" class="headerlink" title="安装TRex-v2.9.7"></a>安装TRex-v2.9.7</h3><ol>
-<li><p>下载TRex的源码，参考（2022年9月）link：<a target="_blank" rel="noopener" href="https://github.com/cisco-system-traffic-generator">https://github.com/cisco-system-traffic-generator</a></p>
+<li><p>下载TRex的源码，参考（2022年9月）<a target="_blank" rel="noopener" href="https://github.com/cisco-system-traffic-generator">点击这里</a>：<a target="_blank" rel="noopener" href="https://github.com/cisco-system-traffic-generator">https://github.com/cisco-system-traffic-generator</a></p>
 </li>
-<li><p>由于trex启动的配置默认为<code>/etc/trex_config.yml</code>，需要根据本地情况进行一些配置：</p>
+<li><p>由于trex启动的配置默认为<code>/etc/trex_config.yml</code>，先拷贝trex自带的过来再根据本地情况进行一些配置：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /trex-v2.9.7/trex_config.yml /etc/trex_config.yml</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>例如在这里我们需要指定哪几个端口用于trex使用，比如我指定了两个端口，interfaces的位置填写trex需要使用的端口pci，trex要求至少两个端口。大概是因为trex的一些测量指标（比如）都是基于一收一发的基础嗷，port_info可以填写IP。</p>
@@ -231,23 +234,24 @@
 <li><p>查看当前的流表配置情况，应如下图所示：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ovs-ofctl dump-flows br0</span><br></pre></td></tr></table></figure></li>
 </ol>
-<img src="TRex使用（一）——-TRex-ovs的简单测试.assets/image-20221024110810812.png" alt="image-20221024110810812" style="zoom:67%;" /></li>
+<img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/image-20221024110810812.png" alt="image-20221024110810812" style="zoom:67%;"></li>
 </ol>
 <h3 id="启动TRex并进行发包测试"><a href="#启动TRex并进行发包测试" class="headerlink" title="启动TRex并进行发包测试"></a>启动TRex并进行发包测试</h3><ol>
 <li><p>打开一个终端窗口（win1），首先要开启trex的本地服务器，进入trex源码路径，64位机器可以执行：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./t-rex_64 -i</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>win1截图如下：</p>
-<img src="TRex使用（一）——-TRex-ovs的简单测试.assets/image-20221024111124825.png" alt="image-20221024111124825" style="zoom:80%;" />
+<p>!</p>
+<img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/image-20221024111124825.png" alt="image-20221024111124825" style="zoom:80%;">
 </li>
 <li><p>打开另一个终端窗口（win2），准备开启trex的发包程序，收包端口不需要额外配置，两个端口的数据和统计信息都可以在同一个trex窗口中查看：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">./trex-console</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">等待输出信息后，控制台变成trex&gt;再输入，注意tui的显示窗口要达到111*45</span></span><br><span class="line">tui</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">观察到控制台变成tui&gt;窗口即可</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>win2启动以后截图如下：</p>
-<img src="TRex使用（一）——-TRex-ovs的简单测试.assets/image-20221024111239907.png" alt="image-20221024111239907" style="zoom:80%;" />
+<img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/image-20221024111239907.png" alt="image-20221024111239907" style="zoom:80%;">
 </li>
 <li><p>开启tui后如下图所示：</p>
-<img src="TRex使用（一）——-TRex-ovs的简单测试.assets/image-20221024111326765.png" alt="image-20221024111326765" style="zoom:80%;" />
+<img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/image-20221024111326765.png" alt="image-20221024111326765" style="zoom:80%;">
 </li>
 <li><p>在win2中继续输入指令发送报文，发端测试的文件是stl&#x2F;udp_1pkt_simple.py，也就是发送一个udp报文，可以通过二层mac地址和三层IP地址进行报文的识别。由于在ovs里只设置了端口级的转发，我们测试的时候只按照二层地址标识。参数意思：-p指定端口，-f指定使用的脚本文件，-d指定发包时长(duration)，-m指定带宽可以为mbps，也可以为百分率，表示发送线速带宽的百分比。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">tui&gt; </span><span class="language-bash">start -p 1 -f stl/udp_1pkt_simple.py -d 60 -m 100mbps</span></span><br></pre></td></tr></table></figure>
@@ -256,10 +260,10 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> trex_stl_lib.api <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">STLS1</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">create_stream</span> (self):</span><br><span class="line">        <span class="keyword">return</span> STLStream( </span><br><span class="line">            packet = </span><br><span class="line">                    STLPktBuilder(</span><br><span class="line">                        <span class="comment"># todo：将参数dst、src修改为DUT的port1和port2的mac地址</span></span><br><span class="line">                        pkt = Ether(src=<span class="string">&quot;9c:69:b4:63:f1:f1&quot;</span>,dst=<span class="string">&quot;6c:b3:11:3b:bd:80&quot;</span>)/IP(src=<span class="string">&quot;16.0.0.1&quot;</span>,dst=<span class="string">&quot;48.0.0.1&quot;</span>)/</span><br><span class="line">                        UDP(dport=<span class="number">12</span>,sport=<span class="number">1025</span>)/(<span class="number">10</span>*<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">                    ),</span><br><span class="line">             mode = STLTXCont())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_streams</span> (self, tunables, **kwargs):</span><br><span class="line">        parser = argparse.ArgumentParser(description=<span class="string">&#x27;Argparser for &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(os.path.basename(__file__)), </span><br><span class="line">                                         formatter_class=argparse.ArgumentDefaultsHelpFormatter)</span><br><span class="line">        args = parser.parse_args(tunables)</span><br><span class="line">        <span class="comment"># create 1 stream </span></span><br><span class="line">        <span class="keyword">return</span> [ self.create_stream() ]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># dynamic load - used for trex console or simulator</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">register</span>():</span><br><span class="line">    <span class="keyword">return</span> STLS1()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>过程中可以看到port1的<code>Tx bps</code>、<code>Tx pps</code>、port0的<code>Rx bps</code>、<code>Rx pps</code>等在增长，直到稳定，如下图所示：</p>
-<img src="TRex使用（一）——-TRex-ovs的简单测试.assets/image-20221024113021567.png" alt="image-20221024113021567" style="zoom:80%;" />
+<img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/image-20221024113021567.png" alt="image-20221024113021567" style="zoom:80%;">
 </li>
 <li><p>发包结束后的统计页面如下图所示，肉眼可以观察到port1发出的包与port0所接收到的包数量一致，丢包率为0%：</p>
-<img src="TRex使用（一）——-TRex-ovs的简单测试.assets/image-20221024112228618.png" alt="image-202217024112228618" style="zoom:80%;" />
+<img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/image-20221024112228618.png" alt="image-202217024112228618" style="zoom:80%;">
 </li>
 <li><p>在trex中为端口开启混杂模式：<code> portattr -a --prom on/off</code>。p.s:如果没有开启混杂模式，该端口无法接受目的mac不是本端口的报文。</p>
 </li>

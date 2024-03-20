@@ -172,21 +172,52 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="一、下载并解压源码"><a href="#一、下载并解压源码" class="headerlink" title="一、下载并解压源码"></a>一、下载并解压源码</h2><ol>
-<li>源码下载地址：<a target="_blank" rel="noopener" href="http://core.dpdk.org/download/">http://core.dpdk.org/download/</a></li>
-<li>选择需要安装的版本，下载以后解压到对应位置。</li>
+        <p>[Toc]</p>
+<h1 id="在Linux中编译和安装DPDK-运行helloworld"><a href="#在Linux中编译和安装DPDK-运行helloworld" class="headerlink" title="在Linux中编译和安装DPDK+运行helloworld"></a>在Linux中编译和安装DPDK+运行helloworld</h1><h2 id="一、下载并解压源码"><a href="#一、下载并解压源码" class="headerlink" title="一、下载并解压源码"></a>一、下载并解压源码</h2><h3 id="环境信息"><a href="#环境信息" class="headerlink" title="环境信息"></a>环境信息</h3><ol>
+<li>系统软件要求<ol>
+<li>操作系统：Ubuntu-18.04</li>
+<li>kernel版本：大于等于4.14，使用<code>uname -r</code>查看自己的操作系统内核版本</li>
+<li>glibc &gt;&#x3D; 2.7 (用于与 cpuset 相关的功能)</li>
+<li>内核配置<ol>
+<li>在Fedora OS和其他常见发行版（例如Ubuntu或Red Hat Enterprise Linux）中，供应商提供的内核配置可用于运行大多数DPDK应用程序。对于其他内核构建，应为 DPDK 启用的内核选项包括：<ol>
+<li>HUGETLBFS</li>
+<li>PROC_PAGE_MONITOR支持</li>
+<li>如果需要HPET支持，还需要开启HPET and HPET_MMAP</li>
 </ol>
-<h2 id="二、使用官方提供脚本进行安装"><a href="#二、使用官方提供脚本进行安装" class="headerlink" title="二、使用官方提供脚本进行安装"></a>二、使用官方提供脚本进行安装</h2><ol>
-<li>进入<code>dpdk-stable-19.11.10</code>主目录，执行dpdk-setup.sh脚本：</li>
+</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash dpdk-setup.sh</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>输出结果如下，输入对应的选项序号，执行指定的步骤：</li>
+</li>
+</ol>
+</li>
+<li>其他软件环境：<ol>
+<li>【必要】python-3.6或者以上版本</li>
+<li>numa架构下需要numa的工具包<code>numalib-dev</code></li>
+<li>开启</li>
+</ol>
+</li>
+<li>源码下载地址：<a target="_blank" rel="noopener" href="http://core.dpdk.org/download/%EF%BC%8C%E9%80%89%E6%8B%A9%E9%9C%80%E8%A6%81%E5%AE%89%E8%A3%85%E7%9A%84%E7%89%88%E6%9C%AC%EF%BC%8C%E4%B8%8B%E8%BD%BD%E4%BB%A5%E5%90%8E%E8%A7%A3%E5%8E%8B%E5%88%B0%E5%AF%B9%E5%BA%94%E4%BD%8D%E7%BD%AE%E3%80%82">http://core.dpdk.org/download/，选择需要安装的版本，下载以后解压到对应位置。</a></li>
+<li>dpdk官方安装参卡地址：<a target="_blank" rel="noopener" href="http://doc.dpdk.org/guides/linux_gsg/index.html">Getting Started Guide for Linux</a> </li>
+<li><strong>本文提供两种编译安装方式：一种快速的、采用官方提供的安装脚本进行安装的方式，以及另一种等价的，通过命令行的安装方式（对DPDK开发者来说更加建议方式2，减少对脚本的依赖，便于理解和记忆）</strong></li>
+</ol>
+<h2 id="二、【方式1】使用官方提供脚本进行安装"><a href="#二、【方式1】使用官方提供脚本进行安装" class="headerlink" title="二、【方式1】使用官方提供脚本进行安装"></a>二、【方式1】使用官方提供脚本进行安装</h2><ol>
+<li><p>进入<code>dpdk-stable-19.11.10</code>主目录，执行dpdk-setup.sh脚本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash dpdk-setup.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>首次输出结果如下，用户只需要输入对应的选项序号，执行指定的步骤即可：</p>
+<details>
+<summary>展开查看</summary>
+<pre><code>
+System.out.println("Hello to see U!");
+</code></pre>
+</details></li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">Press enter to continue ...</span><br><span class="line">----------------------------------------------------------</span><br><span class="line"> Step 1: Select the DPDK environment to build</span><br><span class="line">----------------------------------------------------------</span><br><span class="line">[1] arm64-armada-linuxapp-gcc</span><br><span class="line">[2] arm64-armada-linux-gcc</span><br><span class="line">[3] arm64-armv8a-linuxapp-clang</span><br><span class="line">[4] arm64-armv8a-linuxapp-gcc</span><br><span class="line">[5] arm64-armv8a-linux-clang</span><br><span class="line">[6] arm64-armv8a-linux-gcc</span><br><span class="line">[7] arm64-bluefield-linuxapp-gcc</span><br><span class="line">[8] arm64-bluefield-linux-gcc</span><br><span class="line">[9] arm64-dpaa-linuxapp-gcc</span><br><span class="line">[10] arm64-dpaa-linux-gcc</span><br><span class="line">[11] arm64-emag-linuxapp-gcc</span><br><span class="line">[12] arm64-emag-linux-gcc</span><br><span class="line">[13] arm64-graviton2-linuxapp-gcc</span><br><span class="line">[14] arm64-graviton2-linux-gcc</span><br><span class="line">[15] arm64-n1sdp-linuxapp-gcc</span><br><span class="line">[16] arm64-n1sdp-linux-gcc</span><br><span class="line">[17] arm64-octeontx2-linuxapp-gcc</span><br><span class="line">[18] arm64-octeontx2-linux-gcc</span><br><span class="line">[19] arm64-stingray-linuxapp-gcc</span><br><span class="line">[20] arm64-stingray-linux-gcc</span><br><span class="line">[21] arm64-thunderx2-linuxapp-gcc</span><br><span class="line">[22] arm64-thunderx2-linux-gcc</span><br><span class="line">[23] arm64-thunderx-linuxapp-gcc</span><br><span class="line">[24] arm64-thunderx-linux-gcc</span><br><span class="line">[25] arm64-xgene1-linuxapp-gcc</span><br><span class="line">[26] arm64-xgene1-linux-gcc</span><br><span class="line">[27] arm-armv7a-linuxapp-gcc</span><br><span class="line">[28] arm-armv7a-linux-gcc</span><br><span class="line">[29] graviton2</span><br><span class="line">[30] i686-native-linuxapp-gcc</span><br><span class="line">[31] i686-native-linuxapp-icc</span><br><span class="line">[32] i686-native-linux-gcc</span><br><span class="line">[33] i686-native-linux-icc</span><br><span class="line">[34] ppc_64-power8-linuxapp-gcc</span><br><span class="line">[35] ppc_64-power8-linux-gcc</span><br><span class="line">[36] x86_64-native-bsdapp-clang</span><br><span class="line">[37] x86_64-native-bsdapp-gcc</span><br><span class="line">[38] x86_64-native-freebsd-clang</span><br><span class="line">[39] x86_64-native-freebsd-gcc</span><br><span class="line">[40] x86_64-native-linuxapp-clang</span><br><span class="line">[41] x86_64-native-linuxapp-gcc</span><br><span class="line">[42] x86_64-native-linuxapp-icc</span><br><span class="line">[43] x86_64-native-linux-clang</span><br><span class="line">[44] x86_64-native-linux-gcc</span><br><span class="line">[45] x86_64-native-linux-icc</span><br><span class="line">[46] x86_x32-native-linuxapp-gcc</span><br><span class="line">[47] x86_x32-native-linux-gcc</span><br><span class="line"></span><br><span class="line">----------------------------------------------------------</span><br><span class="line"> Step 2: Setup linux environment</span><br><span class="line">----------------------------------------------------------</span><br><span class="line">[48] Insert IGB UIO module</span><br><span class="line">[49] Insert VFIO module</span><br><span class="line">[50] Insert KNI module</span><br><span class="line">[51] Setup hugepage mappings for non-NUMA systems</span><br><span class="line">[52] Setup hugepage mappings for NUMA systems</span><br><span class="line">[53] Display current Ethernet/Baseband/Crypto device settings</span><br><span class="line">[54] Bind Ethernet/Baseband/Crypto device to IGB UIO module</span><br><span class="line">[55] Bind Ethernet/Baseband/Crypto device to VFIO module</span><br><span class="line">[56] Setup VFIO permissions</span><br><span class="line"></span><br><span class="line">----------------------------------------------------------</span><br><span class="line"> Step 3: Run test application for linux environment</span><br><span class="line">----------------------------------------------------------</span><br><span class="line">[57] Run test application ($RTE_TARGET/app/test)</span><br><span class="line">[58] Run testpmd application in interactive mode ($RTE_TARGET/app/testpmd)</span><br><span class="line"></span><br><span class="line">----------------------------------------------------------</span><br><span class="line"> Step 4: Other tools</span><br><span class="line">----------------------------------------------------------</span><br><span class="line">[59] List hugepage info from /proc/meminfo</span><br><span class="line"></span><br><span class="line">----------------------------------------------------------</span><br><span class="line"> Step 5: Uninstall and system cleanup</span><br><span class="line">----------------------------------------------------------</span><br><span class="line">[60] Unbind devices from IGB UIO or VFIO driver</span><br><span class="line">[61] Remove IGB UIO module</span><br><span class="line">[62] Remove VFIO module</span><br><span class="line">[63] Remove KNI module</span><br><span class="line">[64] Remove hugepage mappings</span><br><span class="line"></span><br><span class="line">[65] Exit Script</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
-<li><p>选择编译的目标环境：<code>[41] x86_64-native-linuxapp-gcc</code>，输入41，开始构建，等待构建完成。</p>
+<li><p>选择编译的目标环境：<code>[41] x86_64-native-linuxapp-gcc</code>，输入41，开始构建，等待构建完成。由于我们使用的是Intel的x86架构下，创建的64位ubuntu操作系统镜像，所以选择41，如果是其他架构的系统请选择对应的选项，例如arm架构等。如何查看本机的架构，使用，输出截图如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uname -a</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">uname</span> -a 命令可以直接显示 Linux 系统架构的命令，安几乎可以工作在所有 Linux/Unix 系统当中。</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/10/25/DPDK-v19-11-10%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%B9%B6%E8%BF%90%E8%A1%8Chelloworld/image-20221101143839089.png" alt="image-20221101143839089"></p>
 </li>
 <li><p>接下来选择插入vfio驱动模块，也可以选择igb_uio，具体的区别见【附录】</p>
 </li>
@@ -208,7 +239,8 @@
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Option: 53</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Network devices using DPDK-compatible driver</span><br><span class="line">============================================</span><br><span class="line">0000:00:0a.0 &#x27;82540EM Gigabit Ethernet Controller 100e&#x27; drv=vfio-pci unused=e1000,uio_pci_generic</span><br><span class="line"></span><br><span class="line">Network devices using kernel driver</span><br><span class="line">===================================</span><br><span class="line">0000:00:03.0 &#x27;RTL-8100/8101L/8139 PCI Fast Ethernet Adapter 8139&#x27; if=ens3 drv=8139cp unused=8139too,vfio-pci,uio_pci_generic *Active*</span><br><span class="line"></span><br><span class="line">No &#x27;Baseband&#x27; devices detected</span><br><span class="line">==============================</span><br><span class="line"></span><br><span class="line">No &#x27;Crypto&#x27; devices detected</span><br><span class="line">============================</span><br><span class="line"></span><br><span class="line">No &#x27;Eventdev&#x27; devices detected</span><br><span class="line">==============================</span><br><span class="line"></span><br><span class="line">No &#x27;Mempool&#x27; devices detected</span><br><span class="line">=============================</span><br><span class="line"></span><br><span class="line">No &#x27;Compress&#x27; devices detected</span><br><span class="line">==============================</span><br><span class="line"></span><br><span class="line">No &#x27;Misc (rawdev)&#x27; devices detected</span><br><span class="line">===================================</span><br><span class="line"></span><br><span class="line">Press enter to continue ...</span><br><span class="line"></span><br><span class="line">Option: 65</span><br></pre></td></tr></table></figure>
 
-<h2 id="三、运行dpdk-helloworld程序"><a href="#三、运行dpdk-helloworld程序" class="headerlink" title="三、运行dpdk-helloworld程序"></a>三、运行dpdk-helloworld程序</h2><ol>
+<h2 id="【方式2】命令行编译"><a href="#【方式2】命令行编译" class="headerlink" title="【方式2】命令行编译"></a>【方式2】命令行编译</h2><p>1.<br>2. 创建目标后，它包含构建客户应用程序所需的 DPDK 环境的所有库和头文件。另外在build&#x2F;app目录下构建了test和testpmd应用，可以用来做测试。还存在一个 kmod 目录，其中包含要安装的内核模块：</p>
+<h2 id="四、运行dpdk-helloworld程序"><a href="#四、运行dpdk-helloworld程序" class="headerlink" title="四、运行dpdk-helloworld程序"></a>四、运行dpdk-helloworld程序</h2><ol>
 <li><p>进入到dpdk安装路径下的examples文件夹：<code> cd /home/dpdk_source/dpdk-stable-19.11.10/examples/helloworld</code></p>
 </li>
 <li><p>设置dpdk运行所需要的环境变量RTE_SDK和RTE_TARGET:</p>
@@ -230,7 +262,8 @@
 <li><p>忘记ovs也是基于dpdk的进程了，没有指定dpdk多进程运行参数，所以二者发生了冲突。暂时用不到ovs，停了以后再次运行helloworld，结果如下：读取到EAL参数后，每个core打印一次helloworld from +core_id。</p>
 <img src="/2022/10/25/DPDK-v19-11-10%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%B9%B6%E8%BF%90%E8%A1%8Chelloworld/dpdk-3.png" alt="dpdk-3" style="zoom:100%;"></li>
 </ol>
-<h2 id="四、附录"><a href="#四、附录" class="headerlink" title="四、附录"></a>四、附录</h2><h3 id="4-1-（可选）采用命令行的方式安装DPDK"><a href="#4-1-（可选）采用命令行的方式安装DPDK" class="headerlink" title="4.1 （可选）采用命令行的方式安装DPDK"></a>4.1 （可选）采用命令行的方式安装DPDK</h3><ol>
+<h2 id="四、附录（Linux基础）"><a href="#四、附录（Linux基础）" class="headerlink" title="四、附录（Linux基础）"></a>四、附录（Linux基础）</h2><p>注意：4.1 是采用命令行的方式进行安装，与前文提到的脚本安装效果相同，各选其一即可。</p>
+<h3 id="4-1-（可选）采用命令行的方式安装DPDK"><a href="#4-1-（可选）采用命令行的方式安装DPDK" class="headerlink" title="4.1 （可选）采用命令行的方式安装DPDK"></a>4.1 （可选）采用命令行的方式安装DPDK</h3><ol>
 <li><p>设置2M的大页内存</p>
 <ol>
 <li>Q&amp;A：2M的和1G的有什么区别呢</li>
@@ -253,11 +286,15 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpdk-devbind.py -b vfio-pci 00:09.0 00:0a.0</span><br></pre></td></tr></table></figure>
 
 <ol start="4">
-<li>解绑dpdk驱动，恢复ixgbe驱动</li>
+<li><strong>解绑dpdk驱动，恢复ixgbe驱动。这里解释一下，单纯是需要解绑的话，只用添加-u参数，意味着此网卡会从vfio-pci驱动回到一个没有绑定驱动的状态（用dpdk查看是）</strong></li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpdk-devbind.py -u ixgbe 00:09.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"></span></span><br><span class="line">sudo dpdk-devbind.py -u ixgbe 00:09.0</span><br></pre></td></tr></table></figure>
 
-<h3 id="4-2-Q-amp-A"><a href="#4-2-Q-amp-A" class="headerlink" title="4.2 Q&amp;A"></a>4.2 Q&amp;A</h3><h4 id="vfio和igb-uio的区别"><a href="#vfio和igb-uio的区别" class="headerlink" title="vfio和igb_uio的区别"></a>vfio和igb_uio的区别</h4><ol>
+<h3 id="4-2-Q-amp-A"><a href="#4-2-Q-amp-A" class="headerlink" title="4.2 Q&amp;A"></a>4.2 Q&amp;A</h3><h4 id="1-为什么要使用大页内存"><a href="#1-为什么要使用大页内存" class="headerlink" title="1. 为什么要使用大页内存"></a>1. 为什么要使用大页内存</h4><ol>
+<li>某些内核版本可能不允许在运行时保留 1 GB 大页面，因此只能在启动时选择保留这些1G的大页。</li>
+<li>对于 64 位应用程序，如果平台支持，建议使用1 GB的大页面。</li>
+</ol>
+<h4 id="2-vfio和igb-uio的区别"><a href="#2-vfio和igb-uio的区别" class="headerlink" title="2. vfio和igb_uio的区别"></a>2. vfio和igb_uio的区别</h4><ol>
 <li><p>参考：</p>
 <ol>
 <li>dpdk对linux内核使用驱动的介绍：<a target="_blank" rel="noopener" href="https://doc.dpdk.org/guides-18.08/linux_gsg/linux_drivers.html">https://doc.dpdk.org/guides-18.08/linux_gsg/linux_drivers.html</a></li>
@@ -272,8 +309,47 @@
 <li><p>建议使用vfio，注意：</p>
 </li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">在所有情况下，建议将vfio-pci用作DPDK绑定端口的内核模块。如果IOMMU不可用，vfio pci可以在无IOMMU模式下使用。如果出于某种原因，vfio不可用，则可以使用基于UIO的模块igb_UIO和UIO_pci_generic。有关详细信息，请参见UIO部分。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">VFIO kernel modules have been included in the Linux kernel since version 3.6.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在所有情况下，建议将vfio-pci用作DPDK绑定端口的内核模块。如果IOMMU不可用，vfio pci可以在无IOMMU模式下使用。如果出于某种原因，vfio不可用，则可以使用基于UIO的模块igb_UIO和UIO_pci_generic。有关详细信息，请参见UIO部分。   </span><br><span class="line"></span><br><span class="line">VFIO kernel modules have been included in the Linux kernel since version 3.6.0</span><br></pre></td></tr></table></figure>
 
+<h4 id="3-什么是动态库？怎么配置动态的环境"><a href="#3-什么是动态库？怎么配置动态的环境" class="headerlink" title="3. 什么是动态库？怎么配置动态的环境"></a>3. 什么是动态库？怎么配置动态的环境</h4><h5 id="静态库v-s动态库"><a href="#静态库v-s动态库" class="headerlink" title="静态库v.s动态库"></a>静态库v.s动态库</h5><ol>
+<li>Libux系统上有两类Linux可执行程序：静态链接的可执行程序与动态链接的可执行程序。<ol>
+<li>第一类是静态链接的可执行程序。它们是“完整的”，静态可执行程序不依赖任何外部库就可以运行。</li>
+<li>第二类则是动态链接的可执行程序，他们在执行时还需要动态地调用其他库，对其他库存在依赖，这样做的好处就是减小了自己程序的大小。而我们要关注的<strong>ld.so.conf 文件就是一个包含要搜索的动态链接库目录的清单</strong>。</li>
+</ol>
+</li>
+</ol>
+<h5 id="ld-so-conf、ldconfig和LD-LIBRARY-PATH"><a href="#ld-so-conf、ldconfig和LD-LIBRARY-PATH" class="headerlink" title="ld.so.conf、ldconfig和LD_LIBRARY_PATH"></a>ld.so.conf、ldconfig和LD_LIBRARY_PATH</h5><ol>
+<li><p>Linux 运行的时候，是如何管理共享库(*.so)的？在 Linux 下面，共享库的寻找和加载是由 &#x2F;lib&#x2F;ld.so 实现的。 <strong>ld.so 在标准路经(&#x2F;lib, &#x2F;usr&#x2F;lib) 中寻找应用程序用到的共享库，主要依赖于<code>/etc/ld.so.conf</code>和<code>/etc/ld.son.conf.cache</code>两个文件</strong>。</p>
+</li>
+<li><p>但是，如果需要用到的共享库在非标准路经（不是&#x2F;lib也不是&#x2F;usr&#x2F;lib），ld.so 怎么找到它呢？</p>
+<ol>
+<li>目前，Linux 通用的做法是将非标准路经加入 &#x2F;etc&#x2F;ld.so.conf。</li>
+<li>然后运行 ldconfig 生成 &#x2F;etc&#x2F;ld.so.cache。 </li>
+<li>ld.so 加载共享库的时候，会从 ld.so.cache 查找。因此，往标准库&#x2F;lib和&#x2F;usr&#x2F;lib里面加东西，是不用修改&#x2F;etc&#x2F;ld.so.conf的，但是完了之后要调一下<strong>ldconfig</strong>，不然这个library还是会找不到。</li>
+<li>上面的步骤总结：首先，要在 &#x2F;etc&#x2F;ld.so.conf中写下“想要读入高速缓存中的动态函数库所在的目录”，注意，是目录而不是文件。 利用ldconfig执行文件将 &#x2F;etc&#x2F;ld.so.conf的数据读入高速缓存中。 同时在 &#x2F;etc&#x2F;ld.so.cache文件中记录数据。</li>
+<li><strong>举个例子</strong>：比如安装了一个mysql到&#x2F;usr&#x2F;local&#x2F;mysql，mysql有一大堆library在&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;lib下面，这时就需要在&#x2F;etc&#x2F;ld.so.conf下面加一行&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;lib，保存过后ldconfig一下，新的library才能在程序运行时被找到。</li>
+<li><strong>那么这个动态库的cache什么时候会失效呢？</strong><ol>
+<li>reboot也并不会失效，见<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/256893/relationship-between-ldconfig-and-ld-so-cache">stackoverflow</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p><strong>环境变量LD_LIBRARY_PATH：</strong></p>
+<ol>
+<li><p>传统上，Linux 的先辈 Unix 还有一个环境变量：LD_LIBRARY_PATH，来处理非标准路经的共享库。ld.so 加载共享库的时候，也会查找这个变量所设置的路经。使用示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib</span><br><span class="line">export LD_LIBRARY_PATH</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">对于dpdk，可以使用：</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>环境变量可以设置多个搜索目录，这些目录之间用冒号分隔开。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export LD_LIBRARY_PATH=&quot;/usr/lib/old:/opt/lib&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>环境变量只对当前的shell有效，是一种临时的解决方案，在没有权限或临时需要的时候使用，而1中提到的ld.so.conf则是全局有效的。</p>
+</li>
+</ol>
+</li>
+<li><p><strong>总之，就是不管做了什么关于library的变动后，最好都ldconfig一下。</strong></p>
+</li>
+</ol>
+<h5 id="gcc编译安装的一些参数、与环境变量的关系"><a href="#gcc编译安装的一些参数、与环境变量的关系" class="headerlink" title="gcc编译安装的一些参数、与环境变量的关系"></a>gcc编译安装的一些参数、与环境变量的关系</h5><p>1.<br>2. ldconfig做的这些东西都与运行程序时有关，跟编译时一点关系都没有。编译的时候还是该加-L就得加，不要混淆了。<br>3. 解决这一问题的另一方法是<strong>在编译的时候通过 -R<path></path> 选项指定 run-time path</strong>。？？？？<br>4. 如果在编译后安装的时候没有指定&#x2F;usr路径，那么默认安装到&#x2F;usr&#x2F;local以后自然会找不到库，这时候我们需要在ld.so.conf中添加对应的库文件路径。<br>5. </p>
 <h3 id="4-3-查看安装的dpdk版本"><a href="#4-3-查看安装的dpdk版本" class="headerlink" title="4.3 查看安装的dpdk版本"></a>4.3 查看安装的dpdk版本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@dpdk-ovs-shared /h/b/d/d/usertools# ls /usr/local/lib/x86_64-linux-gnu/pkgconfig</span><br><span class="line">libdpdk.pc</span><br><span class="line">root@dpdk-ovs-shared /h/b/d/d/usertools# pkg-config --modversion libdpdk</span><br><span class="line">19.11.10</span><br></pre></td></tr></table></figure>
 
       
@@ -373,7 +449,7 @@
 <h2 id="二、环境准备"><a href="#二、环境准备" class="headerlink" title="二、环境准备"></a>二、环境准备</h2><h3 id="1-测试拓扑及配置"><a href="#1-测试拓扑及配置" class="headerlink" title="1. 测试拓扑及配置"></a>1. 测试拓扑及配置</h3><ol>
 <li>拓扑中两台均为虚拟机，位于同一台宿主机上。一台虚拟机作为安装trex的服务（发）端与客户（收）端，透传了两张10Gbps带宽的物理网卡，分别作为trex的收发端口；另外一台是装有ovs-dpdk版的虚拟交换机，这台机器承担转发的任务，一般就是你的DUT（<strong>D</strong>evice<strong>U</strong>nder<strong>T</strong>est），拓扑如下图所示：</li>
 </ol>
-<img src="/2022/10/25/TRex1-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%89%93%E6%B5%81%E6%B5%8B%E8%AF%95/topo.png" alt="topo">
+<img src="/2022/10/25/TRex1-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%89%93%E6%B5%81%E6%B5%8B%E8%AF%95/topo.png" alt="topo" style="zoom:;">
 
 <ol start="2">
 <li>当然只做个人学习测试的话虚拟网卡也可以，但尽量不要选择virtio类型的虚拟网卡，在dpdk驱动支持的方面可能有点问题。（比如在trex里可能会显示速度为100Gb&#x2F;s）</li>
@@ -501,140 +577,6 @@
 
 
   
-    <article id="post-TRex使用（一）——-TRex-ovs的简单测试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/">TRex使用（一）—— TRex+ovs的简单测试</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/" class="archive-article-date">
-  	<time datetime="2022-09-20T13:08:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="TRex使用-一-——-TRex-ovs的简单测试"><a href="#TRex使用-一-——-TRex-ovs的简单测试" class="headerlink" title="TRex使用(一) —— TRex+ovs的简单测试"></a>TRex使用(一) —— TRex+ovs的简单测试</h2><p>本文预期读者对象：对ovs以及dpdk有一定的了解和使用经验，或只需要使用TRex工具测速的软件开发者。</p>
-<h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><h3 id="1-Trex"><a href="#1-Trex" class="headerlink" title="1. Trex"></a>1. Trex</h3><ol>
-<li>TRex是cisco公司的大流量测试器，相较于iperf，TRex可以发到10Gb&#x2F;s，同时也支持通过python脚本（scapy库）发送自定义格式的报文。</li>
-<li>源代码GitHub仓库：<a target="_blank" rel="noopener" href="https://github.com/cisco-system-traffic-generator">cisco-system-traffic-generator</a></li>
-<li>官方文档：<a target="_blank" rel="noopener" href="https://trex-tgn.cisco.com/trex/doc/trex_stateless.html">https://trex-tgn.cisco.com/trex/doc/trex_stateless.html</a></li>
-</ol>
-<h3 id="2-ovs（dpdk）"><a href="#2-ovs（dpdk）" class="headerlink" title="2. ovs（dpdk）"></a>2. ovs（dpdk）</h3><ol>
-<li>ovs版本是2.13.0，查看ovs和dpdk的版本支持列表双选即可。如何查看ovs版本，听我的，就是这样查看：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@srv-07:/home/src/ovs# ovs-appctl --version</span><br><span class="line">ovs-appctl (Open vSwitch) 2.13.0</span><br></pre></td></tr></table></figure></li>
-<li>dpdk选择的版本是19.11.10，之所以选择dpdk-stable-19.11.10是因为后续在做一个load_balancer的实验。</li>
-</ol>
-<h2 id="二、环境准备"><a href="#二、环境准备" class="headerlink" title="二、环境准备"></a>二、环境准备</h2><h3 id="1-测试拓扑及配置"><a href="#1-测试拓扑及配置" class="headerlink" title="1. 测试拓扑及配置"></a>1. 测试拓扑及配置</h3><ol>
-<li>拓扑中两台均为虚拟机，位于同一台宿主机上。一台虚拟机作为安装trex的服务（发）端与客户（收）端，透传了两张10Gbps带宽的物理网卡，分别作为trex的收发端口；另外一台是装有ovs-dpdk版的虚拟交换机，这台机器承担转发的任务，一般就是你的DUT（<strong>D</strong>evice<strong>U</strong>nder<strong>T</strong>est），拓扑如下图所示：</li>
-</ol>
-<img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/topo.png" alt="topo">
-
-<ol start="2">
-<li>当然只做个人学习测试的话虚拟网卡也可以，但尽量不要选择virtio类型的虚拟网卡，在dpdk驱动支持的方面可能有点问题。（比如在trex里可能会显示速度为100Gb&#x2F;s）</li>
-<li>虚拟机镜像都为ubuntu-18.04，要保证能够分配足够ovs的大页内存，例如一个端口512m的大页内存，则2个端口就是1024M，内存至少在1G以上吧。</li>
-</ol>
-<h3 id="2-安装dpdk-stable-19-11-10"><a href="#2-安装dpdk-stable-19-11-10" class="headerlink" title="2. 安装dpdk-stable-19.11.10"></a>2. 安装dpdk-stable-19.11.10</h3><ol>
-<li>可以参考我的<a href>这篇文章-dpdk安装简易版</a>，其实就是借助官方提供的脚本来进行dpdk的安装和端口的驱动绑定。</li>
-</ol>
-<h3 id="3-安装TRex-v2-9-7"><a href="#3-安装TRex-v2-9-7" class="headerlink" title="3. 安装TRex-v2.9.7"></a>3. 安装TRex-v2.9.7</h3><ol>
-<li>下载TRex的源码，参考（2022年9月）<a target="_blank" rel="noopener" href="https://github.com/cisco-system-traffic-generator">点击这里</a>：<a target="_blank" rel="noopener" href="https://github.com/cisco-system-traffic-generator">https://github.com/cisco-system-traffic-generator</a></li>
-<li>由于trex启动的配置默认为<code>/etc/trex_config.yml</code>，先拷贝trex自带的过来再根据本地情况进行一些配置：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /trex-v2.9.7/trex_config.yml /etc/trex_config.yml</span><br></pre></td></tr></table></figure></li>
-<li>例如在这里我们需要指定哪几个端口用于trex使用，比如我指定了两个端口，interfaces的位置填写trex需要使用的端口pci，trex要求至少两个端口。大概是因为trex的一些测量指标（比如）都是基于一收一发的基础嗷，port_info可以填写IP。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@srv-06 /h/b/u/trex-v2.97# cat /etc/trex_cfg.yaml </span><br><span class="line">- port_limit      : 2</span><br><span class="line">  version         : 2</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">List of interfaces. Change to suit your setup. Use ./dpdk_setup_ports.py -s to see available options</span></span><br><span class="line">  interfaces    : [&quot;00:09.0&quot;,&quot;00:0a.0&quot;] </span><br><span class="line">  port_info       :  # Port IPs. Change to suit your needs. In case of loopback, you can leave as is.</span><br><span class="line">          - ip         : 10.1.3.2</span><br><span class="line">            default_gw : 10.1.3.1</span><br><span class="line">          - ip         : 10.1.4.2</span><br><span class="line">            default_gw : 10.1.4.1</span><br></pre></td></tr></table></figure></li>
-<li>完成后即可使用trex。</li>
-</ol>
-<h3 id="4-安装ovs-19-10并配置流表"><a href="#4-安装ovs-19-10并配置流表" class="headerlink" title="4. 安装ovs-19.10并配置流表"></a>4. 安装ovs-19.10并配置流表</h3><ol>
-<li>安装略：下载ovs源码并且编译安装</li>
-<li>配置流表：我们需要测试从DUT的0号端口发送到1号端口，因此需要在ovs中配置的流表信息应该为：”从本机的1号端口进入的报文，从本机的0号端口发出”，转换为指令即：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ovs-ofctl add-flow br0 in_port=dpdk0,actions=output:dpdk1</span><br></pre></td></tr></table></figure></li>
-<li>查看当前的流表配置情况，应如下图所示：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ovs-ofctl dump-flows br0</span><br></pre></td></tr></table></figure>
-
-<img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/ovs-add-flow.png"></li>
-</ol>
-<h3 id="5-启动TRex并进行发包测试"><a href="#5-启动TRex并进行发包测试" class="headerlink" title="5. 启动TRex并进行发包测试"></a>5. 启动TRex并进行发包测试</h3><ol>
-<li>打开窗口win1，输入下面的指令开启trex服务器：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./t-rex_64 -i</span><br></pre></td></tr></table></figure></li>
-<li>开启tui后如下图所示：</li>
-</ol>
-<img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/strat-trex-2.png">
-
-<ol start="3">
-<li>打开另一个终端窗口（win2），准备开启trex的发包程序，收包端口不需要额外配置，两个端口的数据和统计信息都可以在同一个trex窗口中查看：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">./trex-console</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">等待输出信息后，控制台变成trex&gt;再输入tui，注意tui的显示窗口要达到111*45</span></span><br><span class="line">tui</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">观察到控制台变成tui&gt;窗口即可</span></span><br></pre></td></tr></table></figure></li>
-<li>win2启动以后截图如下：</li>
-</ol>
-<img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/start-trex-server.png">
-
-<ol start="5">
-<li>开启tui后如下图所示：</li>
-</ol>
-<img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/start-trex-tui.png">
-
-<ol start="6">
-<li>在win2中继续输入指令发送报文，发端测试的文件是stl&#x2F;udp_1pkt_simple.py，也就是发送一个udp报文，可以通过二层mac地址和三层IP地址进行报文的识别。由于在ovs里只设置了端口级的转发，我们测试的时候只按照二层地址标识。参数意思：-p指定端口，-f指定使用的脚本文件，-d指定发包时长(duration)，-m指定带宽可以为mbps，也可以为百分率，表示发送线速带宽的百分比。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">tui&gt; </span><span class="language-bash">start -p 1 -f stl/udp_1pkt_simple.py -d 60 -m 100mbps</span></span><br></pre></td></tr></table></figure></li>
-<li>脚本文件的内容如下，修改注释中提到的参数即可：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> trex_stl_lib.api <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">STLS1</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">create_stream</span> (self):</span><br><span class="line">        <span class="keyword">return</span> STLStream( </span><br><span class="line">            packet = </span><br><span class="line">                    STLPktBuilder(</span><br><span class="line">                        <span class="comment"># todo：将参数dst、src修改为DUT的port1和port2的mac地址</span></span><br><span class="line">                        pkt = Ether(src=<span class="string">&quot;9c:69:b4:63:f1:f1&quot;</span>,dst=<span class="string">&quot;6c:b3:11:3b:bd:80&quot;</span>)/IP(src=<span class="string">&quot;16.0.0.1&quot;</span>,dst=<span class="string">&quot;48.0.0.1&quot;</span>)/</span><br><span class="line">                        UDP(dport=<span class="number">12</span>,sport=<span class="number">1025</span>)/(<span class="number">10</span>*<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">                    ),</span><br><span class="line">             mode = STLTXCont())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_streams</span> (self, tunables, **kwargs):</span><br><span class="line">        parser = argparse.ArgumentParser(description=<span class="string">&#x27;Argparser for &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(os.path.basename(__file__)), </span><br><span class="line">                                         formatter_class=argparse.ArgumentDefaultsHelpFormatter)</span><br><span class="line">        args = parser.parse_args(tunables)</span><br><span class="line">        <span class="comment"># create 1 stream </span></span><br><span class="line">        <span class="keyword">return</span> [ self.create_stream() ]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># dynamic load - used for trex console or simulator</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">register</span>():</span><br><span class="line">    <span class="keyword">return</span> STLS1()</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li>过程中可以看到port1的<code>Tx bps</code>、<code>Tx pps</code>、port0的<code>Rx bps</code>、<code>Rx pps</code>等在增长，直到稳定，如下图所示：<br><img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/trex-3.png" alt="trex-3"></li>
-<li>发包结束后的统计页面如下图所示，肉眼可以观察到port1发出的包与port0所接收到的包数量一致，丢包率为0%：<br><img src="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/trex-2.png" alt="trex-2"></li>
-<li>在trex中为端口开启混杂模式：<code> portattr -a --prom on/off</code>。p.s:如果没有开启混杂模式，该端口无法接受目的mac不是本端口的报文。</li>
-<li>如需停止发包，win2中输入：<code>stop</code></li>
-<li>要清空统计数据，win2中输入：<code>clear</code></li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">计算机网络 工具使用 流量测试 TRex dpdk ovs</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/20/TRex%E4%BD%BF%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94-TRex-ovs%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -720,7 +662,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2022 John Doe
+    		&copy; 2024 John Doe
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -832,10 +774,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">流量测试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">计算机网络 工具使用 流量测试 TRex dpdk ovs</a>
               </li>
             
             <div class="clearfix"></div>
